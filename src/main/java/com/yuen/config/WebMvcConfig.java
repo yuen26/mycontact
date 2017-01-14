@@ -12,7 +12,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
-		bean.addBasenames("classpath:validation");
+		bean.addBasenames("classpath:messages");
 		return bean;
 	}
 	
