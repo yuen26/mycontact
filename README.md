@@ -1,2 +1,6 @@
 # spring-mycontact
-Simple CRUD app using Spring Boot + Spring MVC + Spring Data JPA + Thymeleaf
+Simple CRUD app using:
+- Spring Boot
+- Spring MVC 
+- Spring Data JPA 
+- Thymeleaf
