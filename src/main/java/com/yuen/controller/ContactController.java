@@ -40,7 +40,7 @@ public class ContactController {
     }
     
     @PostMapping("/contact/save")
-    public String save(@Valid Contact contact, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String save(@Valid Contact contact, BindingResult result, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             return "form";
         }
