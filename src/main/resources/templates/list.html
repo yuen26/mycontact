@@ -1,60 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head"></head>
+
 <body>
-    <nav th:replace="layout :: header"></nav>
+	<nav th:replace="layout :: header"></nav>
 
-    <div class="container main-content list">
-    	<div th:if="${success}" class="row alert alert-success alert-dismissible">
-	        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <span th:text="${success}"></span>
-	    </div>
-    	
-    	<th:block th:if="${#lists.isEmpty(contacts)}">
-		    <h3>No contacts</h3>
-		</th:block>
-		
-        <th:block th:unless="${#lists.isEmpty(contacts)}">
-            <div class="row">
-                <a th:href="@{/contact/create}" class="btn btn-success pull-left">
-                	<span class="glyphicon glyphicon-plus"></span> Add new contact
-               	</a>
-                <form class="form-inline pull-right" action="#" th:action="@{/contact/search}" method="GET">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="q" 
-                            placeholder="Type contact name..." />
-                    </div>
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
-            </div>
-            <div class="row">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="contact,iterStat : ${contacts}">
-                            <td th:text="${iterStat.count}"></td>
-                            <td th:text="${contact.name}"></td>
-                            <td th:text="${contact.email}"></td>
-                            <td th:text="${contact.phone}"></td>
-                            <td><a th:href="@{/contact/{id}/edit(id=${contact.id})}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                            <td><a th:href="@{/contact/{id}/delete(id=${contact.id})}"><span class="glyphicon glyphicon-trash"></span></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </th:block>
-    </div>
-    <!-- /.container -->
+	<div class="container" id="main-content">
+		<div class="row">
+			<div class="col-6 no-padding">
+				<form class="form-inline" action="#" th:action="@{/contact/search}" method="get">
+					<input class="form-control mr-sm-2" type="search" name="term" placeholder="Search by name ..." />
+					<button class="btn btn-primary" type="submit">
+						<i class="fa fa-search"></i> Search
+					</button>
+				</form>
+			</div>
 
-    <footer th:replace="layout :: footer"></footer>
+			<div class="col-6 no-padding">
+				<a href="#" th:href="@{/contact/add}" class="btn btn-success float-right">
+					<i class="fa fa-plus-square"></i> New contact
+				</a>
+			</div>
+		</div>
+
+		<div class="row mt-4">
+			<div th:if="${successMessage}" class="col-12 alert alert-success alert-dismissible fade show" role="alert">
+				<span th:text="${successMessage}"></span>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<th:block th:if="${#lists.isEmpty(contacts)}">
+				<h5>No contacts</h5>
+			</th:block>
+
+			<th:block th:unless="${#lists.isEmpty(contacts)}">
+				<div class="table-responsive">
+					<h5>List of contacts</h5>
+					<table class="table table-bordered table-hover">
+						<thead>
+						<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Action</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="contact,iterStat : ${contacts}">
+							<th scope="row" th:text="${iterStat.count}"></th>
+							<td th:text="${contact.name}"></td>
+							<td th:text="${contact.email}"></td>
+							<td th:text="${contact.phone}"></td>
+							<td>
+								<a href="#" th:href="@{/contact/{id}/edit(id=${contact.id})}" class="mr-sm-2 text-primary">
+									<i class="fa fa-pencil"></i>
+								</a>
+								<a href="#" th:href="@{/contact/{id}/delete(id=${contact.id})}" class="text-danger">
+									<i class="fa fa-trash"></i>
+								</a>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</th:block>
+		</div>
+	</div><!-- /.container -->
+
+	<footer th:replace="layout :: footer"></footer>
+
 </body>
 </html>

@@ -1,17 +1,16 @@
-package com.yuen.service;
+package org.ashina.mycontact.service;
 
-import java.util.List;
-
+import org.ashina.mycontact.entity.Contact;
+import org.ashina.mycontact.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yuen.domain.Contact;
-import com.yuen.repository.ContactRepository;
+import java.util.List;
 
 @Service
 public class ContactServiceImpl implements ContactService {
-	
-	@Autowired
+
+    @Autowired
     private ContactRepository contactRepository;
 
     @Override
@@ -20,12 +19,12 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public List<Contact> search(String q) {
-        return contactRepository.findByNameContaining(q);
+    public List<Contact> search(String term) {
+        return contactRepository.findByNameContaining(term);
     }
 
     @Override
-    public Contact findOne(int id) {
+    public Contact findOne(Integer id) {
         return contactRepository.findOne(id);
     }
 
@@ -35,8 +34,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         contactRepository.delete(id);
     }
-
 }
