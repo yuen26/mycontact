@@ -1,4 +1,3 @@
-# spring-mycontact
 Simple CRUD app using:
 - Spring Boot
 - Spring MVC 
